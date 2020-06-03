@@ -1,0 +1,1270 @@
+  [1m[35m (1303.4ms)[0m  [1m[35mCREATE DATABASE "twit_api_development" ENCODING = 'unicode'[0m
+  [1m[35m (578.0ms)[0m  [1m[35mCREATE DATABASE "twit_api_test" ENCODING = 'unicode'[0m
+  [1m[35m (202.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (97.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4952286101211071385)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20200520134806)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (103.7ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (38.0ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (39.6ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")[0m
+  [1m[36mprimary::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200520134806"]]
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (19.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-05-20 13:48:19.769381"], ["updated_at", "2020-05-20 13:48:19.769381"]]
+  [1m[35m (12.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(4952286101211071385)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4952286101211071385)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddColumnToUser (20200520134910)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (151.5ms)[0m  [1m[35mALTER TABLE "users" ADD "is_admin" boolean DEFAULT FALSE[0m
+  [1m[36mprimary::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200520134910"]]
+  [1m[35m (17.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(4952286101211071385)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4952286101211071385)[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateAuthTokens (20200520135540)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (77.4ms)[0m  [1m[35mCREATE TABLE "auth_tokens" ("id" bigserial primary key, "token" character varying, "user_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (29.8ms)[0m  [1m[35mCREATE  INDEX  "index_auth_tokens_on_user_id" ON "auth_tokens"  ("user_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200520135540"]]
+  [1m[35m (9.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_advisory_unlock(4952286101211071385)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4952286101211071385)[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateTwitts (20200520135755)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (90.0ms)[0m  [1m[35mCREATE TABLE "twitts" ("id" bigserial primary key, "message" text, "user_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_e68fffcc92"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (28.0ms)[0m  [1m[35mCREATE  INDEX  "index_twitts_on_user_id" ON "twitts"  ("user_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200520135755"]]
+  [1m[35m (14.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(4952286101211071385)[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/api/v1/sessions/user_registration?user[%27email%27]=abc@gmail.com&user[%27password%27]=[FILTERED]" for ::1 at 2020-05-20 19:40:57 +0530
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::SessionsController#user_registration as */*
+  Parameters: {"user"=>{"'email'"=>"abc@gmail.com", "'password'"=>"[FILTERED]"}}
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 0.0ms | Allocations: 2174)
+
+
+  
+NameError (uninitialized constant Api::V1::SessionsController::HTTP_BAD_REQUEST):
+  
+app/controllers/api/v1/sessions_controller.rb:49:in `user_registration'
+Started POST "/api/v1/sessions/user_registration?user[%27email%27]=abc@gmail.com&user[%27password%27]=[FILTERED]" for ::1 at 2020-05-20 19:41:32 +0530
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::SessionsController#user_registration as */*
+  Parameters: {"user"=>{"'email'"=>"abc@gmail.com", "'password'"=>"[FILTERED]"}}
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 0.0ms | Allocations: 2245)
+
+
+  
+NameError (uninitialized constant Api::V1::SessionsController::HTTP_BAD_REQUEST):
+  
+app/controllers/api/v1/sessions_controller.rb:49:in `user_registration'
+Started POST "/api/v1/sessions/user_registration?user[%27email%27]=abc@gmail.com&user[%27password%27]=[FILTERED]" for ::1 at 2020-05-20 19:43:17 +0530
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::SessionsController#user_registration as */*
+  Parameters: {"user"=>{"'email'"=>"abc@gmail.com", "'password'"=>"[FILTERED]"}}
+Completed 200 OK in 9ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 359)
+
+
+Started POST "/api/v1/sessions/user_registration?user[email]=abc@gmail.com&user[password]=[FILTERED]" for ::1 at 2020-05-20 19:43:50 +0530
+Processing by Api::V1::SessionsController#user_registration as */*
+  Parameters: {"user"=>{"email"=>"abc@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (35.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "abc@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:34:in `user_registration'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "abc@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "abc@gmail.com"], ["encrypted_password", "$2a$11$ADQpgHCT4M5yBOq/unMRguS0SVCK5MWF6CK6Ez1lvr9LejeCJj/xa"], ["created_at", "2020-05-20 14:13:51.754959"], ["updated_at", "2020-05-20 14:13:51.754959"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[35m (49.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[36mAuthToken Create (19.0ms)[0m  [1m[32mINSERT INTO "auth_tokens" ("token", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["token", "2d224fa0a7f193cc403a53dd"], ["user_id", 1], ["created_at", "2020-05-20 14:13:51.848778"], ["updated_at", "2020-05-20 14:13:51.848778"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[35m (34.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+Completed 500 Internal Server Error in 1386ms (ActiveRecord: 513.4ms | Allocations: 22436)
+
+
+  
+NameError (uninitialized constant Api::V1::SessionsController::SessionSerializer
+Did you mean?  Api::V1::SessionsHelper):
+  
+app/controllers/api/v1/sessions_controller.rb:41:in `user_registration'
+Started POST "/api/v1/sessions/user_registration?user[email]=abc@gmail.com&user[password]=[FILTERED]" for ::1 at 2020-05-20 19:45:01 +0530
+Processing by Api::V1::SessionsController#user_registration as */*
+  Parameters: {"user"=>{"email"=>"abc@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "abc@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:34:in `user_registration'
+Completed 200 OK in 29ms (Views: 0.3ms | ActiveRecord: 5.5ms | Allocations: 6984)
+
+
+Started POST "/api/v1/sessions/user_registration?user[email]=ab111c@gmail.com&user[password]=[FILTERED]" for ::1 at 2020-05-20 19:45:08 +0530
+Processing by Api::V1::SessionsController#user_registration as */*
+  Parameters: {"user"=>{"email"=>"ab111c@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "ab111c@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:34:in `user_registration'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "ab111c@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "ab111c@gmail.com"], ["encrypted_password", "$2a$11$.U9mfJ9atUQsQjdww4N5LeOHAbdS4BElp/av2Pu1kq4Bk0LD7ilxK"], ["created_at", "2020-05-20 14:15:08.350863"], ["updated_at", "2020-05-20 14:15:08.350863"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[35m (18.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[36mAuthToken Create (0.5ms)[0m  [1m[32mINSERT INTO "auth_tokens" ("token", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["token", "e2db1fcc809f9309cd5f65a0"], ["user_id", 2], ["created_at", "2020-05-20 14:15:08.394883"], ["updated_at", "2020-05-20 14:15:08.394883"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[35m (6.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+Completed 200 OK in 310ms (Views: 0.5ms | ActiveRecord: 35.2ms | Allocations: 10616)
+
+
+Started POST "/api/v1/sessions/user_registration?user[email]=ab11221c@gmail.com&user[password]=[FILTERED]" for ::1 at 2020-05-20 19:45:55 +0530
+Processing by Api::V1::SessionsController#user_registration as */*
+  Parameters: {"user"=>{"email"=>"ab11221c@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "ab11221c@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:34:in `user_registration'
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "ab11221c@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "ab11221c@gmail.com"], ["encrypted_password", "$2a$11$yy2XAmxf/ClcgoX/VRc4vOXuSJwcOk84.9j1GK.qyfUn3bXIXtjMK"], ["created_at", "2020-05-20 14:15:55.810216"], ["updated_at", "2020-05-20 14:15:55.810216"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[35m (183.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[36mAuthToken Create (0.5ms)[0m  [1m[32mINSERT INTO "auth_tokens" ("token", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["token", "477fe069222817e30d8c7dcc"], ["user_id", 3], ["created_at", "2020-05-20 14:15:56.014473"], ["updated_at", "2020-05-20 14:15:56.014473"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[35m (14.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+Completed 500 Internal Server Error in 517ms (ActiveRecord: 210.1ms | Allocations: 18605)
+
+
+  
+NoMethodError (undefined method `user' for #<AuthToken:0x00007f70685ad900>
+Did you mean?  user_id):
+  
+app/serializers/session_serializer.rb:4:in `block in <class:SessionSerializer>'
+app/controllers/api/v1/sessions_controller.rb:45:in `user_registration'
+Started POST "/api/v1/sessions/user_registration?user[email]=ab11221c@gmail.com&user[password]=[FILTERED]" for ::1 at 2020-05-20 19:48:04 +0530
+Processing by Api::V1::SessionsController#user_registration as */*
+  Parameters: {"user"=>{"email"=>"ab11221c@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "ab11221c@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:34:in `user_registration'
+Completed 200 OK in 25ms (Views: 0.4ms | ActiveRecord: 6.4ms | Allocations: 6879)
+
+
+Started POST "/api/v1/sessions/user_registration?user[email]=absadas221c@gmail.com&user[password]=[FILTERED]" for ::1 at 2020-05-20 19:48:09 +0530
+Processing by Api::V1::SessionsController#user_registration as */*
+  Parameters: {"user"=>{"email"=>"absadas221c@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "absadas221c@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:34:in `user_registration'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "absadas221c@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "absadas221c@gmail.com"], ["encrypted_password", "$2a$11$uBtWx8d5k0Bmt7K11XdhBOaPSl8/MlMToHUw.rSvaZe0ouUflSAeC"], ["created_at", "2020-05-20 14:18:09.930509"], ["updated_at", "2020-05-20 14:18:09.930509"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[35m (17.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[36mAuthToken Create (0.4ms)[0m  [1m[32mINSERT INTO "auth_tokens" ("token", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["token", "07c8e25e0e6085e460f3c2e8"], ["user_id", 4], ["created_at", "2020-05-20 14:18:10.119871"], ["updated_at", "2020-05-20 14:18:10.119871"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[35m (17.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+Completed 200 OK in 482ms (Views: 0.5ms | ActiveRecord: 44.9ms | Allocations: 16343)
+
+
+Started POST "/api/v1/sessions/user_registration?user[email]=absadasdf221c@gmail.com&user[password]=[FILTERED]" for ::1 at 2020-05-20 19:49:27 +0530
+Processing by Api::V1::SessionsController#user_registration as */*
+  Parameters: {"user"=>{"email"=>"absadasdf221c@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "absadasdf221c@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:34:in `user_registration'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "absadasdf221c@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[36mUser Create (1.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "absadasdf221c@gmail.com"], ["encrypted_password", "$2a$11$Hh5Uy2Gcc96Td4NA/8Ls3OAOTyokzcSkZ/SrAICH0/88YeC2pyLVS"], ["created_at", "2020-05-20 14:19:28.328355"], ["updated_at", "2020-05-20 14:19:28.328355"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[35m (18.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[36mAuthToken Create (0.7ms)[0m  [1m[32mINSERT INTO "auth_tokens" ("token", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["token", "0c536f6300fe6ee41fe0ec5d"], ["user_id", 5], ["created_at", "2020-05-20 14:19:28.381354"], ["updated_at", "2020-05-20 14:19:28.381354"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[35m (10.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+Completed 200 OK in 352ms (Views: 0.9ms | ActiveRecord: 46.6ms | Allocations: 19078)
+
+
+Started GET "/api/v1/sessions/logout" for ::1 at 2020-05-20 19:50:39 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/api/v1/sessions/logout"):
+  
+actionpack (6.0.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+web-console (4.0.2) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.0.2) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.0.3.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.5) lib/puma/configuration.rb:228:in `call'
+puma (4.3.5) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.5) lib/puma/server.rb:472:in `process_client'
+puma (4.3.5) lib/puma/server.rb:328:in `block in run'
+puma (4.3.5) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started DELETE "/api/v1/sessions/logout" for ::1 at 2020-05-20 19:51:00 +0530
+Processing by Api::V1::SessionsController#logout as */*
+  [1m[36mAuthToken Load (0.4ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "0c536f6300fe6ee41fe0ec5d"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:25:in `logout'
+  [1m[36mAuthToken Destroy (0.9ms)[0m  [1m[31mDELETE FROM "auth_tokens" WHERE "auth_tokens"."id" = $1[0m  [["id", 5]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:25:in `logout'
+  [1m[35m (13.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:25:in `logout'
+Completed 200 OK in 28ms (Views: 0.4ms | ActiveRecord: 16.0ms | Allocations: 3552)
+
+
+Started POST "/api/v1/sessions/user_registration?user[email]=absadasdf221c@gmail.com&user[password]=[FILTERED]" for ::1 at 2020-05-20 19:53:27 +0530
+Processing by Api::V1::SessionsController#user_registration as */*
+  Parameters: {"user"=>{"email"=>"absadasdf221c@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "absadasdf221c@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:34:in `user_registration'
+Completed 200 OK in 26ms (Views: 0.3ms | ActiveRecord: 6.6ms | Allocations: 6881)
+
+
+Started POST "/api/v1/sessions?user[email]=absadasdf221c@gmail.com&user[password]=[FILTERED]" for ::1 at 2020-05-20 19:53:40 +0530
+Processing by Api::V1::SessionsController#create as */*
+  Parameters: {"user"=>{"email"=>"absadasdf221c@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "absadasdf221c@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:7:in `create'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:9:in `create'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:9:in `create'
+  [1m[36mAuthToken Create (0.4ms)[0m  [1m[32mINSERT INTO "auth_tokens" ("token", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["user_id", 5], ["created_at", "2020-05-20 14:23:40.495761"], ["updated_at", "2020-05-20 14:23:40.495761"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:9:in `create'
+  [1m[35m (19.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:9:in `create'
+Completed 200 OK in 311ms (Views: 0.3ms | ActiveRecord: 25.3ms | Allocations: 9105)
+
+
+Started POST "/api/v1/twitts?twitts[message]=sdfsdfdsfsdfsdfsdfsd" for ::1 at 2020-05-20 20:15:56 +0530
+Processing by Api::V1::TwittsController#create as */*
+  Parameters: {"twitts"=>{"message"=>"sdfsdfdsfsdfsdfsdfsd"}}
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 250)
+
+
+Started POST "/api/v1/twitts?twitts[message]=sdfsdfdsfsdfsdfsdfsd" for ::1 at 2020-05-20 20:16:09 +0530
+Processing by Api::V1::TwittsController#create as */*
+  Parameters: {"twitts"=>{"message"=>"sdfsdfdsfsdfsdfsdfsd"}}
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 206)
+
+
+Started POST "/api/v1/twitts?twitt[message]=sdfsdfdsfsdfsdfsdfsd" for ::1 at 2020-05-20 20:16:45 +0530
+Processing by Api::V1::TwittsController#create as */*
+  Parameters: {"twitt"=>{"message"=>"sdfsdfdsfsdfsdfsdfsd"}}
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms | Allocations: 891)
+
+
+  
+NoMethodError (undefined method `twitts' for nil:NilClass):
+  
+app/controllers/api/v1/twitts_controller.rb:7:in `create'
+Started POST "/api/v1/twitts?twitt[message]=sdfsdfdsfsdfsdfsdfsd" for ::1 at 2020-05-20 20:17:20 +0530
+Processing by Api::V1::TwittsController#create as */*
+  Parameters: {"twitt"=>{"message"=>"sdfsdfdsfsdfsdfsdfsd"}}
+Can't verify CSRF token authenticity.
+Completed 422 Unprocessable Entity in 1ms (ActiveRecord: 0.0ms | Allocations: 462)
+
+
+  
+ActionController::InvalidAuthenticityToken (ActionController::InvalidAuthenticityToken):
+  
+actionpack (6.0.3.1) lib/action_controller/metal/request_forgery_protection.rb:215:in `handle_unverified_request'
+actionpack (6.0.3.1) lib/action_controller/metal/request_forgery_protection.rb:247:in `handle_unverified_request'
+devise (4.7.1) lib/devise/controllers/helpers.rb:255:in `handle_unverified_request'
+actionpack (6.0.3.1) lib/action_controller/metal/request_forgery_protection.rb:242:in `verify_authenticity_token'
+activesupport (6.0.3.1) lib/active_support/callbacks.rb:428:in `block in make_lambda'
+activesupport (6.0.3.1) lib/active_support/callbacks.rb:200:in `block (2 levels) in halting'
+actionpack (6.0.3.1) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (6.0.3.1) lib/active_support/callbacks.rb:201:in `block in halting'
+activesupport (6.0.3.1) lib/active_support/callbacks.rb:513:in `block in invoke_before'
+activesupport (6.0.3.1) lib/active_support/callbacks.rb:513:in `each'
+activesupport (6.0.3.1) lib/active_support/callbacks.rb:513:in `invoke_before'
+activesupport (6.0.3.1) lib/active_support/callbacks.rb:134:in `run_callbacks'
+actionpack (6.0.3.1) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.0.3.1) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.0.3.1) lib/action_controller/metal/instrumentation.rb:33:in `block in process_action'
+activesupport (6.0.3.1) lib/active_support/notifications.rb:180:in `block in instrument'
+activesupport (6.0.3.1) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.0.3.1) lib/active_support/notifications.rb:180:in `instrument'
+actionpack (6.0.3.1) lib/action_controller/metal/instrumentation.rb:32:in `process_action'
+actionpack (6.0.3.1) lib/action_controller/metal/params_wrapper.rb:245:in `process_action'
+activerecord (6.0.3.1) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.0.3.1) lib/abstract_controller/base.rb:136:in `process'
+actionview (6.0.3.1) lib/action_view/rendering.rb:39:in `process'
+actionpack (6.0.3.1) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.0.3.1) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.0.3.1) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.0.3.1) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.0.3.1) lib/action_dispatch/journey/router.rb:49:in `block in serve'
+actionpack (6.0.3.1) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.0.3.1) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.0.3.1) lib/action_dispatch/routing/route_set.rb:834:in `call'
+warden (1.2.8) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.8) lib/warden/manager.rb:34:in `catch'
+warden (1.2.8) lib/warden/manager.rb:34:in `call'
+rack (2.2.2) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.2) lib/rack/etag.rb:27:in `call'
+rack (2.2.2) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.2) lib/rack/head.rb:12:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/http/content_security_policy.rb:18:in `call'
+rack (2.2.2) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.2) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/cookies.rb:648:in `call'
+activerecord (6.0.3.1) lib/active_record/migration.rb:567:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+web-console (4.0.2) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.0.2) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.0.3.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.5) lib/puma/configuration.rb:228:in `call'
+puma (4.3.5) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.5) lib/puma/server.rb:472:in `process_client'
+puma (4.3.5) lib/puma/server.rb:328:in `block in run'
+puma (4.3.5) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started POST "/api/v1/twitts?twitt[message]=sdfsdfdsfsdfsdfsdfsd" for ::1 at 2020-05-20 20:17:39 +0530
+Processing by Api::V1::TwittsController#create as */*
+  Parameters: {"twitt"=>{"message"=>"sdfsdfdsfsdfsdfsdfsd"}}
+Filter chain halted as :check_authenticate_user rendered or redirected
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms | Allocations: 265)
+
+
+  [1m[36mAuthToken Load (1.0ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" ORDER BY "auth_tokens"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+Started POST "/api/v1/twitts?twitt[message]=sdfsdfdsfsdfsdfsdfsd" for ::1 at 2020-05-20 20:29:16 +0530
+Processing by Api::V1::TwittsController#create as */*
+  Parameters: {"twitt"=>{"message"=>"sdfsdfdsfsdfsdfsdfsd"}}
+  [1m[36mAuthToken Load (0.8ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+  [1m[36mTwitt Create (30.2ms)[0m  [1m[32mINSERT INTO "twitts" ("message", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "sdfsdfdsfsdfsdfsdfsd"], ["user_id", 5], ["created_at", "2020-05-20 14:59:16.255545"], ["updated_at", "2020-05-20 14:59:16.255545"]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+  [1m[35m (22.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+Completed 500 Internal Server Error in 226ms (ActiveRecord: 81.5ms | Allocations: 23607)
+
+
+  
+NoMethodError (undefined method `[]' for nil:NilClass):
+  
+app/controllers/api/v1/twitts_controller.rb:10:in `create'
+Started POST "/api/v1/twitts?twitt[message]=sdfsdfdsfsdfsdfsdfsd" for ::1 at 2020-05-20 20:38:35 +0530
+Processing by Api::V1::TwittsController#create as */*
+  Parameters: {"twitt"=>{"message"=>"sdfsdfdsfsdfsdfsdfsd"}}
+  [1m[36mAuthToken Load (0.6ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+  [1m[36mTwitt Create (1.5ms)[0m  [1m[32mINSERT INTO "twitts" ("message", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "sdfsdfdsfsdfsdfsdfsd"], ["user_id", 5], ["created_at", "2020-05-20 15:08:36.018008"], ["updated_at", "2020-05-20 15:08:36.018008"]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+  [1m[35m (15.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+Completed 500 Internal Server Error in 69ms (ActiveRecord: 19.4ms | Allocations: 19228)
+
+
+  
+SyntaxError (/home/ashu/twit_api/app/serializers/twitt_serializer.rb:10: syntax error, unexpected tSTRING_DEND, expecting end
+...zable_hash[:data][:attributes]}
+...                              ^):
+  
+app/serializers/twitt_serializer.rb:10: syntax error, unexpected tSTRING_DEND, expecting end
+app/serializers/twitt_serializer.rb:10: syntax error, unexpected tSTRING_DEND, expecting end
+app/serializers/twitt_serializer.rb:10: syntax error, unexpected tSTRING_DEND, expecting end
+app/controllers/api/v1/twitts_controller.rb:7:in `create'
+Started POST "/api/v1/twitts?twitt[message]=sdfsdfdsfsdfsdfsdfsd" for ::1 at 2020-05-20 20:39:40 +0530
+Processing by Api::V1::TwittsController#create as */*
+  Parameters: {"twitt"=>{"message"=>"sdfsdfdsfsdfsdfsdfsd"}}
+  [1m[36mAuthToken Load (0.3ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+  [1m[36mTwitt Create (0.8ms)[0m  [1m[32mINSERT INTO "twitts" ("message", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "sdfsdfdsfsdfsdfsdfsd"], ["user_id", 5], ["created_at", "2020-05-20 15:09:40.928030"], ["updated_at", "2020-05-20 15:09:40.928030"]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+  [1m[35m (11.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+Completed 500 Internal Server Error in 110ms (ActiveRecord: 32.9ms | Allocations: 21790)
+
+
+  
+NoMethodError (undefined method `user' for #<User:0x00007f706895cf10>
+Did you mean?  super):
+  
+app/serializers/session_serializer.rb:4:in `block in <class:SessionSerializer>'
+app/serializers/twitt_serializer.rb:10:in `block in <class:TwittSerializer>'
+app/controllers/api/v1/twitts_controller.rb:11:in `create'
+Started POST "/api/v1/twitts?twitt[message]=sdfsdfdsfsdfsdfsdfsd" for ::1 at 2020-05-20 20:42:19 +0530
+Processing by Api::V1::TwittsController#create as */*
+  Parameters: {"twitt"=>{"message"=>"sdfsdfdsfsdfsdfsdfsd"}}
+  [1m[36mAuthToken Load (0.3ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (4.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+  [1m[36mTwitt Create (0.6ms)[0m  [1m[32mINSERT INTO "twitts" ("message", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "sdfsdfdsfsdfsdfsdfsd"], ["user_id", 5], ["created_at", "2020-05-20 15:12:19.284719"], ["updated_at", "2020-05-20 15:12:19.284719"]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+  [1m[35m (11.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+Completed 500 Internal Server Error in 96ms (ActiveRecord: 31.8ms | Allocations: 21762)
+
+
+  
+NoMethodError (undefined method `user' for #<User:0x00007f7068724478>
+Did you mean?  super):
+  
+app/serializers/user_serializer.rb:4:in `block in <class:UserSerializer>'
+app/serializers/twitt_serializer.rb:10:in `block in <class:TwittSerializer>'
+app/controllers/api/v1/twitts_controller.rb:11:in `create'
+Started POST "/api/v1/twitts?twitt[message]=sdfsdfdsfsdfsdfsdfsd" for ::1 at 2020-05-20 20:46:14 +0530
+Processing by Api::V1::TwittsController#create as */*
+  Parameters: {"twitt"=>{"message"=>"sdfsdfdsfsdfsdfsdfsd"}}
+  [1m[36mAuthToken Load (0.5ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+  [1m[36mTwitt Create (1.2ms)[0m  [1m[32mINSERT INTO "twitts" ("message", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "sdfsdfdsfsdfsdfsdfsd"], ["user_id", 5], ["created_at", "2020-05-20 15:16:15.170191"], ["updated_at", "2020-05-20 15:16:15.170191"]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+  [1m[35m (35.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+Completed 200 OK in 138ms (Views: 0.6ms | ActiveRecord: 57.7ms | Allocations: 19582)
+
+
+Started GET "/api/v1/twitts" for ::1 at 2020-05-20 20:47:18 +0530
+Processing by Api::V1::TwittsController#index as */*
+Filter chain halted as :check_authenticate_user rendered or redirected
+Completed 200 OK in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 261)
+
+
+Started GET "/api/v1/twitts" for ::1 at 2020-05-20 20:47:35 +0530
+Processing by Api::V1::TwittsController#index as */*
+  [1m[36mAuthToken Load (0.5ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[36mTwitt Load (0.5ms)[0m  [1m[34mSELECT "twitts".* FROM "twitts"[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:73:in `index'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/serializers/twitt_serializer.rb:10:in `block in <class:TwittSerializer>'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/serializers/twitt_serializer.rb:10:in `block in <class:TwittSerializer>'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/serializers/twitt_serializer.rb:10:in `block in <class:TwittSerializer>'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/serializers/twitt_serializer.rb:10:in `block in <class:TwittSerializer>'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/serializers/twitt_serializer.rb:10:in `block in <class:TwittSerializer>'
+Completed 200 OK in 145ms (Views: 0.4ms | ActiveRecord: 25.6ms | Allocations: 20730)
+
+
+Started GET "/api/v1/twitt/5?twitts[message]=newupdate" for ::1 at 2020-05-20 20:49:24 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/api/v1/twitt/5"):
+  
+actionpack (6.0.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+web-console (4.0.2) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.0.2) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.0.3.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.5) lib/puma/configuration.rb:228:in `call'
+puma (4.3.5) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.5) lib/puma/server.rb:472:in `process_client'
+puma (4.3.5) lib/puma/server.rb:328:in `block in run'
+puma (4.3.5) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started PUT "/api/v1/twitt/5?twitts[message]=newupdate" for ::1 at 2020-05-20 20:49:40 +0530
+  
+ActionController::RoutingError (No route matches [PUT] "/api/v1/twitt/5"):
+  
+actionpack (6.0.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+web-console (4.0.2) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.0.2) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.0.3.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.5) lib/puma/configuration.rb:228:in `call'
+puma (4.3.5) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.5) lib/puma/server.rb:472:in `process_client'
+puma (4.3.5) lib/puma/server.rb:328:in `block in run'
+puma (4.3.5) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started PUT "/api/v1/twitts/5?twitts[message]=newupdate" for ::1 at 2020-05-20 20:50:02 +0530
+Processing by Api::V1::TwittsController#update as */*
+  Parameters: {"twitts"=>{"message"=>"newupdate"}, "id"=>"5"}
+  [1m[36mAuthToken Load (0.7ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[36mTwitt Load (0.5ms)[0m  [1m[34mSELECT "twitts".* FROM "twitts" WHERE "twitts"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:51:in `update'
+Completed 500 Internal Server Error in 26ms (ActiveRecord: 2.3ms | Allocations: 4410)
+
+
+  
+NoMethodError (undefined method `user_id' for #<User:0x0000557240236538>):
+  
+app/controllers/api/v1/twitts_controller.rb:53:in `update'
+Started PUT "/api/v1/twitts/5?twitts[message]=newupdate" for ::1 at 2020-05-20 20:50:55 +0530
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::TwittsController#update as */*
+  Parameters: {"twitts"=>{"message"=>"newupdate"}, "id"=>"5"}
+  [1m[36mAuthToken Load (0.7ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[36mTwitt Load (0.5ms)[0m  [1m[34mSELECT "twitts".* FROM "twitts" WHERE "twitts"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:51:in `update'
+Completed 500 Internal Server Error in 30743ms (ActiveRecord: 22.5ms | Allocations: 51761)
+
+
+  
+NoMethodError (undefined method `user_id' for #<User:0x00005616b390b148>):
+  
+app/controllers/api/v1/twitts_controller.rb:54:in `update'
+Started PUT "/api/v1/twitts/5?twitts[message]=newupdate" for ::1 at 2020-05-20 20:51:47 +0530
+Processing by Api::V1::TwittsController#update as */*
+  Parameters: {"twitts"=>{"message"=>"newupdate"}, "id"=>"5"}
+  [1m[36mAuthToken Load (0.3ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[36mTwitt Load (0.9ms)[0m  [1m[34mSELECT "twitts".* FROM "twitts" WHERE "twitts"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:51:in `update'
+Completed 400 Bad Request in 4056ms (ActiveRecord: 18.5ms | Allocations: 26880)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: twitt):
+  
+app/controllers/api/v1/twitts_controller.rb:82:in `twitt_params'
+app/controllers/api/v1/twitts_controller.rb:55:in `update'
+Started PUT "/api/v1/twitts/5?twitt[message]=newupdate" for ::1 at 2020-05-20 20:52:19 +0530
+Processing by Api::V1::TwittsController#update as */*
+  Parameters: {"twitt"=>{"message"=>"newupdate"}, "id"=>"5"}
+  [1m[36mAuthToken Load (0.6ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[36mTwitt Load (4.0ms)[0m  [1m[34mSELECT "twitts".* FROM "twitts" WHERE "twitts"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:51:in `update'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:55:in `update'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:55:in `update'
+  [1m[36mTwitt Update (0.6ms)[0m  [1m[33mUPDATE "twitts" SET "message" = $1, "updated_at" = $2 WHERE "twitts"."id" = $3[0m  [["message", "newupdate"], ["updated_at", "2020-05-20 15:22:21.281946"], ["id", 5]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:55:in `update'
+  [1m[35m (15.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:55:in `update'
+Completed 500 Internal Server Error in 1688ms (ActiveRecord: 21.7ms | Allocations: 19192)
+
+
+  
+FastJsonapi::MandatoryField (id is a mandatory field in the jsonapi spec):
+  
+app/controllers/api/v1/twitts_controller.rb:59:in `update'
+Started PUT "/api/v1/twitts/5?twitt[message]=newupdate" for ::1 at 2020-05-20 20:53:06 +0530
+Processing by Api::V1::TwittsController#update as */*
+  Parameters: {"twitt"=>{"message"=>"newupdate"}, "id"=>"5"}
+  [1m[36mAuthToken Load (0.7ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[36mTwitt Load (0.5ms)[0m  [1m[34mSELECT "twitts".* FROM "twitts" WHERE "twitts"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:51:in `update'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:55:in `update'
+Completed 500 Internal Server Error in 2768ms (ActiveRecord: 23.0ms | Allocations: 29021)
+
+
+  
+FastJsonapi::MandatoryField (id is a mandatory field in the jsonapi spec):
+  
+app/controllers/api/v1/twitts_controller.rb:59:in `update'
+Started PUT "/api/v1/twitts/5?twitt[message]=newupdate" for ::1 at 2020-05-20 20:53:38 +0530
+Processing by Api::V1::TwittsController#update as */*
+  Parameters: {"twitt"=>{"message"=>"newupdate"}, "id"=>"5"}
+  [1m[36mAuthToken Load (0.5ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[36mTwitt Load (0.5ms)[0m  [1m[34mSELECT "twitts".* FROM "twitts" WHERE "twitts"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:51:in `update'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:55:in `update'
+Completed 200 OK in 3824ms (Views: 0.4ms | ActiveRecord: 24.0ms | Allocations: 29140)
+
+
+Started DELETE "/api/v1/twitts/5" for ::1 at 2020-05-20 20:55:05 +0530
+Processing by Api::V1::TwittsController#destroy as */*
+  Parameters: {"id"=>"5"}
+Filter chain halted as :check_authenticate_user rendered or redirected
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.0ms | Allocations: 263)
+
+
+Started DELETE "/api/v1/twitts/5" for ::1 at 2020-05-20 20:55:22 +0530
+Processing by Api::V1::TwittsController#destroy as */*
+  Parameters: {"id"=>"5"}
+  [1m[36mAuthToken Load (0.5ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[36mTwitt Load (0.4ms)[0m  [1m[34mSELECT "twitts".* FROM "twitts" WHERE "twitts"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:20:in `destroy'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:23:in `destroy'
+  [1m[36mTwitt Destroy (1.1ms)[0m  [1m[31mDELETE FROM "twitts" WHERE "twitts"."id" = $1[0m  [["id", 5]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:23:in `destroy'
+  [1m[35m (32.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:23:in `destroy'
+Completed 200 OK in 156ms (Views: 0.4ms | ActiveRecord: 58.8ms | Allocations: 17938)
+
+
+Started GET "/api/v1/twitts/5" for ::1 at 2020-05-20 20:56:00 +0530
+Processing by Api::V1::TwittsController#show as */*
+  Parameters: {"id"=>"5"}
+  [1m[36mAuthToken Load (0.5ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[36mTwitt Load (4.0ms)[0m  [1m[34mSELECT "twitts".* FROM "twitts" WHERE "twitts"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:38:in `show'
+Completed 200 OK in 16ms (Views: 1.0ms | ActiveRecord: 5.1ms | Allocations: 2088)
+
+
+Started GET "/api/v1/twitts/6" for ::1 at 2020-05-20 20:56:06 +0530
+Processing by Api::V1::TwittsController#show as */*
+  Parameters: {"id"=>"6"}
+  [1m[36mAuthToken Load (0.4ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[36mTwitt Load (2.0ms)[0m  [1m[34mSELECT "twitts".* FROM "twitts" WHERE "twitts"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:38:in `show'
+Completed 200 OK in 10ms (Views: 0.3ms | ActiveRecord: 2.8ms | Allocations: 2100)
+
+
+Started GET "/api/v1/twitts/4" for ::1 at 2020-05-20 20:56:11 +0530
+Processing by Api::V1::TwittsController#show as */*
+  Parameters: {"id"=>"4"}
+  [1m[36mAuthToken Load (0.3ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[36mTwitt Load (1.0ms)[0m  [1m[34mSELECT "twitts".* FROM "twitts" WHERE "twitts"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:38:in `show'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/serializers/twitt_serializer.rb:10:in `block in <class:TwittSerializer>'
+Completed 200 OK in 28ms (Views: 0.4ms | ActiveRecord: 1.6ms | Allocations: 5487)
+
+
+Started POST "/api/v1/sessions/user_registration?user[email]=abssadsadsadadasdf221c@gmail.com&user[password]=[FILTERED]" for ::1 at 2020-05-20 20:58:23 +0530
+Processing by Api::V1::SessionsController#user_registration as */*
+  Parameters: {"user"=>{"email"=>"abssadsadsadadasdf221c@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "abssadsadsadadasdf221c@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:34:in `user_registration'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "abssadsadsadadasdf221c@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "abssadsadsadadasdf221c@gmail.com"], ["encrypted_password", "$2a$11$kcxMlgfvS5qDy6PxQXO0BO3BKsmfCowEiHaK2QTM41csI9sMBEENS"], ["created_at", "2020-05-20 15:28:23.854452"], ["updated_at", "2020-05-20 15:28:23.854452"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[35m (17.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[36mAuthToken Create (0.9ms)[0m  [1m[32mINSERT INTO "auth_tokens" ("token", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["token", "f7614fbed0441f7492cf2b65"], ["user_id", 6], ["created_at", "2020-05-20 15:28:23.883414"], ["updated_at", "2020-05-20 15:28:23.883414"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[35m (5.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+Completed 200 OK in 418ms (Views: 0.4ms | ActiveRecord: 26.5ms | Allocations: 9538)
+
+
+Started DELETE "/api/v1/sessions/logout" for ::1 at 2020-05-20 21:01:10 +0530
+Processing by Api::V1::SessionsController#logout as */*
+  [1m[36mAuthToken Load (0.3ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "0c536f6300fe6ee41fe0ec5ds"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+Filter chain halted as :check_authenticate_user rendered or redirected
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.3ms | Allocations: 782)
+
+
+Started POST "/api/v1/twitts?twitt[message]=sdfsdfdsfsdfsdfsdfsd" for ::1 at 2020-05-20 21:05:14 +0530
+Processing by Api::V1::TwittsController#create as */*
+  Parameters: {"twitt"=>{"message"=>"sdfsdfdsfsdfsdfsdfsd"}}
+  [1m[36mAuthToken Load (0.3ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c82689a3478d8fdaa9d038f1"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+  [1m[36mTwitt Create (2.3ms)[0m  [1m[32mINSERT INTO "twitts" ("message", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "sdfsdfdsfsdfsdfsdfsd"], ["user_id", 5], ["created_at", "2020-05-20 15:35:14.722735"], ["updated_at", "2020-05-20 15:35:14.722735"]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+  [1m[35m (65.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+Completed 200 OK in 125ms (Views: 0.4ms | ActiveRecord: 69.1ms | Allocations: 7277)
+
+
+  [1m[35m (5.4ms)[0m  [1m[35mCREATE DATABASE "contact_form_development" ENCODING = 'unicode'[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE DATABASE "contact_form_test" ENCODING = 'unicode'[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8484695406181739955)[0m
+  [1m[35m (2.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20200520134806)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (13.7ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(8484695406181739955)[0m
+Started GET "/api/v1/sessions/user_registration" for ::1 at 2020-05-20 22:49:34 +0530
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        rails db:migrate RAILS_ENV=development
+
+):
+  
+activerecord (6.0.3.1) lib/active_record/migration.rb:586:in `check_pending!'
+activerecord (6.0.3.1) lib/active_record/migration.rb:564:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.1) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+web-console (4.0.2) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.0.2) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.0.3.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.5) lib/puma/configuration.rb:228:in `call'
+puma (4.3.5) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.5) lib/puma/server.rb:472:in `process_client'
+puma (4.3.5) lib/puma/server.rb:328:in `block in run'
+puma (4.3.5) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8484695406181739955)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20200520134806)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(8484695406181739955)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8484695406181739955)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20200520134806)
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (8.5ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (3.5ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")[0m
+  [1m[36mprimary::SchemaMigration Create (1.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200520134806"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddColumnToUser (20200520134910)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (7.5ms)[0m  [1m[35mALTER TABLE "users" ADD "is_admin" boolean DEFAULT FALSE[0m
+  [1m[36mprimary::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200520134910"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAuthTokens (20200520135540)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.0ms)[0m  [1m[35mCREATE TABLE "auth_tokens" ("id" bigserial primary key, "token" character varying, "user_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX  "index_auth_tokens_on_user_id" ON "auth_tokens"  ("user_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200520135540"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateTwitts (20200520135755)
+  [1m[35m (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.6ms)[0m  [1m[35mCREATE TABLE "twitts" ("id" bigserial primary key, "message" text, "user_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_e68fffcc92"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE  INDEX  "index_twitts_on_user_id" ON "twitts"  ("user_id")[0m
+  [1m[36mprimary::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200520135755"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (5.9ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(8484695406181739955)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/api/v1/sessions/user_registration" for ::1 at 2020-05-20 22:53:11 +0530
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActionController::RoutingError (No route matches [GET] "/api/v1/sessions/user_registration"):
+  
+actionpack (6.0.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+web-console (4.0.2) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.0.2) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.0.3.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.5) lib/puma/configuration.rb:228:in `call'
+puma (4.3.5) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.5) lib/puma/server.rb:472:in `process_client'
+puma (4.3.5) lib/puma/server.rb:328:in `block in run'
+puma (4.3.5) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/api/v1/sessions/logout" for ::1 at 2020-05-20 22:53:54 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/api/v1/sessions/logout"):
+  
+actionpack (6.0.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+web-console (4.0.2) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.0.2) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.0.3.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.5) lib/puma/configuration.rb:228:in `call'
+puma (4.3.5) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.5) lib/puma/server.rb:472:in `process_client'
+puma (4.3.5) lib/puma/server.rb:328:in `block in run'
+puma (4.3.5) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/" for ::1 at 2020-05-20 22:55:36 +0530
+Processing by Rails::WelcomeController#index as */*
+  Rendering /Users/piyushchowhan/.rvm/gems/ruby-2.6.3/gems/railties-6.0.3.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/piyushchowhan/.rvm/gems/ruby-2.6.3/gems/railties-6.0.3.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 7.9ms | Allocations: 197)
+Completed 200 OK in 11ms (Views: 8.9ms | ActiveRecord: 0.0ms | Allocations: 1026)
+
+
+Started GET "/api/v1/sessions" for ::1 at 2020-05-20 22:56:27 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/api/v1/sessions"):
+  
+actionpack (6.0.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+web-console (4.0.2) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.0.2) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.0.3.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.5) lib/puma/configuration.rb:228:in `call'
+puma (4.3.5) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.5) lib/puma/server.rb:472:in `process_client'
+puma (4.3.5) lib/puma/server.rb:328:in `block in run'
+puma (4.3.5) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/api/v1/sessions/user_registration" for ::1 at 2020-05-20 22:56:36 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/api/v1/sessions/user_registration"):
+  
+actionpack (6.0.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+web-console (4.0.2) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.0.2) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.0.3.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.5) lib/puma/configuration.rb:228:in `call'
+puma (4.3.5) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.5) lib/puma/server.rb:472:in `process_client'
+puma (4.3.5) lib/puma/server.rb:328:in `block in run'
+puma (4.3.5) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/api/v1/sessions/users/sign_in" for ::1 at 2020-05-20 22:58:51 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/api/v1/sessions/users/sign_in"):
+  
+actionpack (6.0.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+web-console (4.0.2) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.0.2) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.0.3.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.5) lib/puma/configuration.rb:228:in `call'
+puma (4.3.5) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.5) lib/puma/server.rb:472:in `process_client'
+puma (4.3.5) lib/puma/server.rb:328:in `block in run'
+puma (4.3.5) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/api/v1/sessions/users/sign_in" for ::1 at 2020-05-20 22:58:53 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/api/v1/sessions/users/sign_in"):
+  
+actionpack (6.0.3.1) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+web-console (4.0.2) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.0.2) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.0.2) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.1) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.2) lib/rack/method_override.rb:24:in `call'
+rack (2.2.2) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.2) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.1) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+webpacker (4.2.2) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.0.3.1) lib/rails/engine.rb:527:in `call'
+puma (4.3.5) lib/puma/configuration.rb:228:in `call'
+puma (4.3.5) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.5) lib/puma/server.rb:472:in `process_client'
+puma (4.3.5) lib/puma/server.rb:328:in `block in run'
+puma (4.3.5) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started DELETE "/api/v1/sessions/logout" for ::1 at 2020-05-20 22:59:45 +0530
+Processing by Api::V1::SessionsController#logout as */*
+Filter chain halted as :check_authenticate_user rendered or redirected
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms | Allocations: 312)
+
+
+Started POST "/api/v1/sessions/user_registration?user[email]=abc@gmail.com&user[password]=[FILTERED]" for ::1 at 2020-05-20 23:01:20 +0530
+Processing by Api::V1::SessionsController#user_registration as */*
+  Parameters: {"user"=>{"email"=>"abc@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (4.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "abc@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:34:in `user_registration'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "abc@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[36mUser Create (2.9ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["email", "abc@gmail.com"], ["encrypted_password", "$2a$11$FUbZ0jQvtS1WDFcZLRTOCu2itudvBRNnsSp1.UIHwxgC84VTssqg."], ["created_at", "2020-05-20 17:31:21.104458"], ["updated_at", "2020-05-20 17:31:21.104458"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[36mAuthToken Create (1.4ms)[0m  [1m[32mINSERT INTO "auth_tokens" ("token", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["token", "1333281d598eebcdd24e958d"], ["user_id", 1], ["created_at", "2020-05-20 17:31:21.153196"], ["updated_at", "2020-05-20 17:31:21.153196"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+Completed 200 OK in 176ms (Views: 0.2ms | ActiveRecord: 17.8ms | Allocations: 24847)
+
+
+Started POST "/api/v1/sessions/user_registration?user[email]=abc@gmail.com&user[password]=[FILTERED]&user[is_admin]=true" for ::1 at 2020-05-20 23:01:43 +0530
+Processing by Api::V1::SessionsController#user_registration as */*
+  Parameters: {"user"=>{"email"=>"abc@gmail.com", "password"=>"[FILTERED]", "is_admin"=>"true"}}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "abc@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:34:in `user_registration'
+Completed 200 OK in 2ms (Views: 0.2ms | ActiveRecord: 0.2ms | Allocations: 852)
+
+
+Started POST "/api/v1/sessions/user_registration?user[email]=admin@gmail.com&user[password]=[FILTERED]&user[is_admin]=true" for ::1 at 2020-05-20 23:01:55 +0530
+Processing by Api::V1::SessionsController#user_registration as */*
+  Parameters: {"user"=>{"email"=>"admin@gmail.com", "password"=>"[FILTERED]", "is_admin"=>"true"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "admin@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:34:in `user_registration'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "admin@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "is_admin") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["email", "admin@gmail.com"], ["encrypted_password", "$2a$11$.OdzRMsZWRtMBGdUH8lzX.8EcVX/glxquGzX7GWeZtNXkIPtHYJp2"], ["created_at", "2020-05-20 17:31:55.290937"], ["updated_at", "2020-05-20 17:31:55.290937"], ["is_admin", true]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:39:in `user_registration'
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[36mAuthToken Create (0.2ms)[0m  [1m[32mINSERT INTO "auth_tokens" ("token", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["token", "c9b8d84f8e94e7ed192e78c5"], ["user_id", 2], ["created_at", "2020-05-20 17:31:55.296027"], ["updated_at", "2020-05-20 17:31:55.296027"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:40:in `user_registration'
+Completed 200 OK in 104ms (Views: 0.1ms | ActiveRecord: 2.8ms | Allocations: 8204)
+
+
+Started DELETE "/api/v1/sessions/logout" for ::1 at 2020-05-20 23:03:19 +0530
+Processing by Api::V1::SessionsController#logout as */*
+Filter chain halted as :check_authenticate_user rendered or redirected
+Completed 200 OK in 1ms (Views: 0.1ms | ActiveRecord: 0.0ms | Allocations: 246)
+
+
+Started DELETE "/api/v1/sessions/logout" for ::1 at 2020-05-20 23:04:02 +0530
+Processing by Api::V1::SessionsController#logout as */*
+  [1m[36mAuthToken Load (0.2ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "c9b8d84f8e94e7ed192e78c5"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:25:in `logout'
+  [1m[36mAuthToken Destroy (1.7ms)[0m  [1m[31mDELETE FROM "auth_tokens" WHERE "auth_tokens"."id" = $1[0m  [["id", 2]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:25:in `logout'
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:25:in `logout'
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 2.3ms | Allocations: 3586)
+
+
+Started POST "/api/v1/sessions?user[email]=abc@gmail.com&user[password]=[FILTERED]" for ::1 at 2020-05-20 23:07:03 +0530
+Processing by Api::V1::SessionsController#create as */*
+  Parameters: {"user"=>{"email"=>"abc@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "abc@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:7:in `create'
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:9:in `create'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:9:in `create'
+  [1m[36mAuthToken Create (0.2ms)[0m  [1m[32mINSERT INTO "auth_tokens" ("token", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["token", "bafb39ef422d9dd3ec4c2f9f"], ["user_id", 1], ["created_at", "2020-05-20 17:37:03.995110"], ["updated_at", "2020-05-20 17:37:03.995110"]]
+  ↳ app/controllers/api/v1/sessions_controller.rb:9:in `create'
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/sessions_controller.rb:9:in `create'
+Completed 200 OK in 100ms (Views: 0.2ms | ActiveRecord: 1.9ms | Allocations: 4553)
+
+
+Started POST "/api/v1/twitts?twitt[message]=HIiiiiiiiiiiii" for ::1 at 2020-05-20 23:09:18 +0530
+Processing by Api::V1::TwittsController#create as */*
+  Parameters: {"twitt"=>{"message"=>"HIiiiiiiiiiiii"}}
+  [1m[36mAuthToken Load (0.4ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "bafb39ef422d9dd3ec4c2f9f"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+  [1m[36mTwitt Create (4.5ms)[0m  [1m[32mINSERT INTO "twitts" ("message", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["message", "HIiiiiiiiiiiii"], ["user_id", 1], ["created_at", "2020-05-20 17:39:18.857759"], ["updated_at", "2020-05-20 17:39:18.857759"]]
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:6:in `create'
+Completed 200 OK in 27ms (Views: 0.2ms | ActiveRecord: 7.4ms | Allocations: 11673)
+
+
+Started GET "/api/v1/twitts" for ::1 at 2020-05-20 23:10:21 +0530
+Processing by Api::V1::TwittsController#index as */*
+  [1m[36mAuthToken Load (0.2ms)[0m  [1m[34mSELECT "auth_tokens".* FROM "auth_tokens" WHERE "auth_tokens"."token" = $1 LIMIT $2[0m  [["token", "bafb39ef422d9dd3ec4c2f9f"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:7:in `check_authenticate_user'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/api_controller.rb:8:in `check_authenticate_user'
+  [1m[36mTwitt Load (0.3ms)[0m  [1m[34mSELECT "twitts".* FROM "twitts"[0m
+  ↳ app/controllers/api/v1/twitts_controller.rb:73:in `index'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/serializers/twitt_serializer.rb:10:in `block in <class:TwittSerializer>'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 0.6ms | Allocations: 3153)
+
+
